@@ -100,7 +100,7 @@ In writing this slide, I realized many things that I did not understand. I may h
 
 <br />
 
-### [<mdi-github-circle />understand-stable-diffusion-slidev-ja](https://github.com/masaishi/understand-stable-diffusion-slidev-ja)
+### [<mdi-github-circle />understand-stable-diffusion-slidev](https://github.com/masaishi/understand-stable-diffusion-slidev)
 
 <br />
 
