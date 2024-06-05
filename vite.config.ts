@@ -10,6 +10,6 @@ export default defineConfig(({ command, mode }) => {
   return {
     plugins: [],
 		// TODO: Uncomment or unmerged to main.
-    base: '/understand-stable-diffusion-slidev-ja/',
+    base: '/understand-stable-diffusion-slidev/',
   }
 })
