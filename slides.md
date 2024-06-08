@@ -205,8 +205,8 @@ level: 2
 layout: center
 ---
 
-# Diffusers are highly flexible, but <br />
-# that's why understand the code is difficult.
+# Diffusers are highly flexible,<br />
+# but understanding the code is difficult.
 
 ---
 level: 2
@@ -263,37 +263,6 @@ layout: center
 
 # How is image generation performed?
 
----
-level: 2
-layout: image-right
-image: /exps/p-sd2-sample-43.webp
----
-
-# [<mdi-github-circle />PareDiffusers](https://github.com/masaishi/parediffusers)
-## <!-- TODO: Find better way, currently for avoide below becomes subtitle -->
-
-[![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/drive/1I-qU3hfF19T42ksIh5FC0ReyKZ2hsJvx?usp=sharing)
-
-Install the PareDiffusers library:
-```python
-!pip install parediffusers
-```
-
-Generate an image from text:
-```python {11}{lines:true}
-import torch
-from parediffusers import PareDiffusionPipeline
-
-pipe = PareDiffusionPipeline.from_pretrained(
-  "stabilityai/stable-diffusion-2",
-  device=torch.device("cuda"),
-  dtype=torch.float16,
-)
-prompt = "painting depicting the sea, sunrise, ship, artstation, 4k, concept art"
-
-image = pipe(prompt, width=512, height=512)
-display(image)
-```
 
 ---
 level: 2
@@ -320,7 +289,7 @@ def __call__(self, prompt: str, height: int = 512, width: int = 512, ...):
 	return image
 ```
 ```md {all}
-1. `encode_prompt` : Convert Prompt to Embedding.
+1. `encode_prompt` : Convert prompt to embedding.
 2. `get_latent` : Create random Latent.
 3. `denoise` : Denosing by using Scheduler and UNet.
 4. `vae_decode` : Decode to pixel space by VAE.
@@ -333,7 +302,7 @@ layout: center
 ---
 
 ```md {all|1|2|3|4|all}{lines:false, style:'--slidev-code-font-size: 1.2rem; --slidev-code-line-height: 1.5;'}
-1. `encode_prompt` : Convert Prompt to Embedding.
+1. `encode_prompt` : Convert prompt to embedding.
 2. `get_latent` : Create random Latent.
 3. `denoise` : Denosing by using Scheduler and UNet.
 4. `vae_decode` : Decode to pixel space by VAE.
@@ -529,7 +498,7 @@ transition: fade
 The flow of image generation in 4 steps
 
 <h1 class="!text-7">
-Step 1: Convert Prompt to Embedding.<br />
+Step 1: Convert prompt to embedding.<br />
 Step 2: Create random Latent.<br />
 Step 3: Denosing by using Scheduler and UNet.<br />
 Step 4: Decode to pixel space by VAE.
@@ -566,7 +535,7 @@ transition: fade
 ---
 
 Step 1: encode_prompt
-# Convert Prompt to Embedding.
+# Convert prompt to embedding.
 
 ---
 level: 2
@@ -696,7 +665,7 @@ layout: two-cols
 ---
 
 <h1 class="!text-8.3">Step 1: encode_prompt</h1>
-<p>Read the code and understand the whole flow</p>
+<p>Understand the whole flow</p>
 
 - L54: `CLIPTokenizer`: Token into text (Prompt). By making it a vector, it makes it easier to handle AI.
 
@@ -833,7 +802,7 @@ leftPercent: 0.4
 ---
 
 <h1 class="!text-8.3">Step 2: get_latent</h1>
-<p>Read the code and understand the whole flow</p>
+<p>Understand the whole flow</p>
 
 <v-clicks every="1">
 
@@ -1011,7 +980,7 @@ leftPercent: 0.5
 ---
 
 # Step 3: denoise
-Read the code and understand the whole flow
+Understand the whole flow
 
 <v-clicks every="1">
 
@@ -1059,7 +1028,8 @@ level: 2
 ---
 
 # <span class="text-3xl">[<mdi-github-circle />scheduler.py](https://github.com/masaishi/parediffusers/blob/main/src/parediffusers/scheduler.py)</span>
-Determine the strength of denoising
+Determine the strength <br />
+of denoising
 
 <iframe frameborder="0" scrolling="yes" class="overflow-scroll iframe-full-code" allow="clipboard-write" src="https://emgithub.com/iframe.html?target=https%3A%2F%2Fgithub.com%2Fmasaishi%2Fparediffusers%2Fblob%2Fmain%2Fsrc%2Fparediffusers%2Fscheduler.py&style=github&type=code&showBorder=on&showLineNumbers=on&showFileMeta=on&showFullPath=on&showCopy=on"></iframe>
 
@@ -1085,8 +1055,7 @@ leftPercent: 0.5
 
 - L56: Calculate the direction to restore it to the original image.
 
-- L57: Calculate the sample that goes one step further in the deming by combining the estimated original sample and the update direction.
-
+- L57: Calculate the sample that goes one step further in the denoising by using 3 values.
 </v-clicks>
 
 ::right::
@@ -1289,15 +1258,15 @@ leftPercent: 0.4
 ---
 
 <h1 class="!text-7.8">Step 4: vae_decode</h1>
-<p>Read the code and understand the whole flow</p>
+<p>Understand the whole flow</p>
 
 <v-clicks every="1">
 
-- L112: Decode into the image with VAE
+- L112: Decode into the image space.
 
 <img src="/exps/vae_decode.webp" class="mb-5 h-28 object-contain" />
 
-- L113: Since we are learning and learning, it is necessary to reverse.
+- L113: Normalization is performed during training, so denormalize it.
 
 <img src="/exps/vae_denormalize.webp" class="mb-5 h-28 object-contain" />
 
@@ -1406,11 +1375,35 @@ level: 2
 layout: center
 ---
 
-Conclusion
-# Step 1: Convert Prompt to Embedding.
-# Step 2: Create random Latent.<br />
-# Step 3: Denosing by using Scheduler and UNet.<br />
-# Step 4: Decode to pixel space by VAE.
+## Conclusion
+<br />
+<h1>
+Step 1: Convert prompt to embedding.<br />
+Step 2: Create random Latent.<br />
+Step 3: Denosing by using Scheduler and UNet.<br />
+Step 4: Decode to pixel space by VAE.
+</h1>
+
+---
+level: 2
+layout: center
+---
+
+## Conclusion
+
+[<mdi-github-circle />pipeline.py#L117-L135](https://github.com/masaishi/parediffusers/blob/9e32721a4b1a63baf499517384e2a2acd9c08dae/src/parediffusers/pipeline.py#L117-L135)
+
+```python
+def __call__(self, prompt: str, height: int = 512, width: int = 512, ...):
+	prompt_embeds = self.encode_prompt(prompt)
+	latents = self.get_latent(width, height).unsqueeze(dim=0)
+	latents = self.denoise(latents, prompt_embeds, ...)
+	image = self.vae_decode(latents)
+	return image
+```
+
+<img src="/images/ldm-4step-figure.webp" class="mt-5" />
+
 
 ---
 level: 1
